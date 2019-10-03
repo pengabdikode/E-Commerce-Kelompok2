@@ -5,7 +5,7 @@
 	<div class="container">
 		<ul class="breadcrumb">
 			<li><a href="#">Home</a></li>
-			<li class="active">Register</li>
+			<li class="active">{{ Auth::user()->name }} Profile</li>
 		</ul>
 	</div>
 </div>
@@ -18,12 +18,10 @@
 		<!-- row -->
 		<div class="row">
 
-			<form action="{{ url('/guest/register') }}" method="POST" id="checkout-form" class="clearfix">
 				<div class="col-md-6">
 					<div class="billing-details">
-						@csrf
 						<div class="section-title">
-							<h3 class="title">Profile</h3>
+							<h3 class="title">{{ Auth::user()->name }} Profile</h3>
 						</div>
 						<div class="form-group">
 							<input class="input" type="text" name="first-name" placeholder="First Name">
@@ -64,10 +62,8 @@
 						
 						</div>
 						<div class="pull-right">
-								<button class="primary-btn">Register</button>
-							</div>
-						</form>
-						<p>Already a customer ? <a href="{{ url('/e-shop/login') }}">Login</a></p>
+								<button class="primary-btn">Edit Profile</button>
+						</div>
 					</div>
 					
 				</div>

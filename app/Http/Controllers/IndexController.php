@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Cart;
+use App\User;
 use App\Income;
 use App\Transaction;
 use App\Bank;
@@ -28,10 +30,21 @@ class IndexController extends Controller
      //index//
      public function register(Request $request){
         if($request->isMethod('POST')){
-            foreach($books as $book)
-
-            $pro=Product::where(['status'=>1])->paginate(6);
-            return redirect('/e-shop/login');
+            $data=$request->all();
+            $register= new User;
+            $register->first_name= $data['first-name'];
+            $register->last_name=$data['last-name'];
+            $register->address=$data['address'];
+            $register->city=$data['city'];
+            $register->telephone_number=$data['tel'];
+            $register->name=$data['user_name'];
+            $register->email=$data['email'];
+            $register->postal_code=$data['postal_code'];
+            $register->password= Hash::make($data['password']);
+            $register->member='normal';
+            $register->admin=0;
+            $register->save();
+            return redirect('/e-shop/login')->with('flash_message_success', 'Registered successfully!');
         }else{
 
             $carts=Cart::getContent();
@@ -57,6 +70,7 @@ class IndexController extends Controller
         if($request->isMethod('POST')){
             $data=$request->all();
             $insert_carts = [];
+            $delete_carts = [];
             
             foreach($carts as $cart){
                 $data=$request->all();
@@ -78,6 +92,8 @@ class IndexController extends Controller
             $income->amount_money=$total;
             $income->save();
 
+            Cart::clear();
+            
             return redirect('/checkout')->with('flash_message_success', 'Checkout successfully!');
         }
        

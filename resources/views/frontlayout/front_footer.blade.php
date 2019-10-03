@@ -27,7 +27,7 @@
 						<h3 class="footer-header">Join Us!</h3>
 						<ul class="list-links">
 							<li><a href="{{ url('/e-shop/login') }}">Login</a></li>
-							<li><a href="#">Register</a></li>
+							<li><a href="{{ url('/guest/register') }}">Register</a></li>
 							@else
 						<h3 class="footer-header">{{ Auth::user()->name }}</h3>
 						<ul class="list-links">

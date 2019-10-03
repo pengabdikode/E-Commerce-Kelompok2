@@ -22,11 +22,11 @@
 								<div class="header-btns-icon">
 									<i class="fa fa-user-o"></i>
 								</div>
-								<strong class="text-uppercase">Guest <i class="fa fa-caret-down"></i></strong>
+								<strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
 							</div>
 							
 							<ul class="custom-menu">
-								<li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+								<li><a href="{{ url('/guest/register') }}"><i class="fa fa-user-plus"></i> Create An Account</a></li>
 								<li><a href="{{ url('/e-shop/login') }}" class="text-uppercase"> <i class="fa fa-unlock-alt"></i> Login</a></li>
 								
 							</ul>
@@ -55,7 +55,7 @@
 							<ul class="custom-menu">
 								<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
 								<li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-								<li><a href="{{ url('/e-shop/login') }}" class="text-uppercase"> <i class="fa fa-unlock-alt"></i> Logout</a></li>
+								<li><a href="{{ url('/logout') }}" class="text-uppercase"> <i class="fa fa-unlock-alt"></i> Logout</a></li>
 								
 							</ul>
 						</li>

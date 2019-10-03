@@ -19,7 +19,7 @@
 Route::get('/index','IndexController@index');
 
 //register
-Route::get('/guest/register','IndexController@register');
+Route::match(['get','post'],'/guest/register','IndexController@register');
 
 //cart
 Route::get('/cart','IndexController@cart');
@@ -33,7 +33,7 @@ Route::get('/viewby-product/{view}/{id}','IndexController@viewby_product');
 Route::match(['get','post'],'/detail/{id}','IndexController@detail');
 
 //login
-Route::match(['get','post'],'/e-shop/login','AdminController@login');
+Route::match(['get','post'],'/e-shop/login','AdminController@login')->name('logine');
 
 Auth::routes();
 
