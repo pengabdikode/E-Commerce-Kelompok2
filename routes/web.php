@@ -92,7 +92,7 @@ Route::group(['middleware'=>['auth']],function(){
 
 	
 	//checkout
-Route::get('/checkout','IndexController@checkout');
+Route::match(['get','post'],'/checkout','IndexController@checkout');
 
 });
 

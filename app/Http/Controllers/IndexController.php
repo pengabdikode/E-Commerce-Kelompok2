@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Cart;
+use App\Income;
+use App\Transaction;
 use App\Bank;
 use App\Product;
 use App\Category;
@@ -25,6 +28,7 @@ class IndexController extends Controller
      //index//
      public function register(Request $request){
         if($request->isMethod('POST')){
+            foreach($books as $book)
 
             $pro=Product::where(['status'=>1])->paginate(6);
             return redirect('/e-shop/login');
@@ -42,19 +46,47 @@ class IndexController extends Controller
 
 
     //checkout//
-     public function checkout(){
+     public function checkout(Request $request){
         $carts=Cart::getContent();
         $total = Cart::getTotal();
         $bank= Bank::get();
         $category= Category::get();
         $size= Stock::get();
         $brands= Brand::get();
+
+        if($request->isMethod('POST')){
+            $data=$request->all();
+            $insert_carts = [];
+            
+            foreach($carts as $cart){
+                $data=$request->all();
+                 $insert_carts[] = [
+                    'id_user' => Auth::user()->id,
+                    'size' => $cart->attributes->id_size,
+                    'amount' => $cart->quantity,  
+                    'amount_money' => $cart->quantity*$cart->price,
+                    'id_bank' => $data['bank'],
+                    'id_product' => $cart->id
+                ];
+            }
+            Transaction::insert($insert_carts);
+
+            $income= new Income;
+            $income->id_user= Auth::user()->id;
+            $income->payment_method=$data['payments'];
+            $income->id_bank=$data['bank'];
+            $income->amount_money=$total;
+            $income->save();
+
+            return redirect('/checkout')->with('flash_message_success', 'Checkout successfully!');
+        }
+       
         return view("front.checkout")->with(compact('category', 'brands','carts', 'total', 'size', 'bank'));
     }
 
     /////all cart function//////
     //cart//
-        public function cart(){
+    public function cart(){
         $carts=Cart::getContent();
         $size=Stock::get();
         // return $carts;    

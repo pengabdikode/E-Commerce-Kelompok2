@@ -31,7 +31,7 @@
 			<!-- row -->
 			<div class="row">
 				<form action="{{ url('/checkout') }}" method="POST" id="checkout-form" class="clearfix">
-
+						@csrf
 						<div class="col-md-6">
 						<div class="shiping-methods">
 							<div class="section-title">
@@ -74,9 +74,6 @@
 							</div>
 
 					</div>
-					@foreach($carts as $crt)
-					<input type="" name="">
-					@endforeach
 </form>
 					<div class="col-md-12">
 						<div class="order-summary clearfix">
